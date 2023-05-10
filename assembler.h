@@ -10,5 +10,6 @@ static int addr = 0;
 
 void MIPSassembler();
 void GetLabel();
+void OutputMachineCode();
 
 #endif
