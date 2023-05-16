@@ -13,6 +13,7 @@ void Initialize()
 void Execute_instruction(string s)
 {
     string op = s.substr(0,5);
+    int rs, rt, rd;
     if(op == "000000")//add
     {
 
