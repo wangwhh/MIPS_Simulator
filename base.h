@@ -4,6 +4,7 @@
 //Operands in MIPS are divided into 3 categories:registers,memory,immediate numbers.
 #include<iostream>
 #include<vector>
+#include<map>
 
 using namespace std;
 
@@ -20,10 +21,13 @@ using namespace std;
 //$sp:stack pointer
 //$fp:frame pointer
 //$ra:for return address(the jal and lr instruction)
-vector<char>zero(32),at(32),v0(32),v1(32),a0(32),a1(32),a2(32),a3(32),t0(32),t1(32),t2(32),t3(32),t4(32),t5(32),t6(32),t7(32),s0(32),s1(32),s2(32),s3(32),s4(32),s5(32),s6(32),s7(32),t8(32),t9(32),k0(32),k1(32),gp(32),sp(32),fp(32),ra(32);
-vector<char>pc(32),lo(32),hi(32);
-vector<char>mem(65536);//64 kb
-vector<char>cur(32);//to store the current instruction
+vector<string>registers(32);
+vector<string>register_name{"zero","at","v0","a0","a1","a2","a3","t0","t1","t2","t3","t4","t5","t6","t7","s0","s1","s2","s3","s4","s5","s6","s7","t8","t9","k0","k1","gp","sp","fp","ra"};
+//vector<char>zero(32),at(32),v0(32),v1(32),a0(32),a1(32),a2(32),a3(32),t0(32),t1(32),t2(32),t3(32),t4(32),t5(32),t6(32),t7(32),s0(32),s1(32),s2(32),s3(32),s4(32),s5(32),s6(32),s7(32),t8(32),t9(32),k0(32),k1(32),gp(32),sp(32),fp(32),ra(32);
+string PC;
+vector<char>lo(32),hi(32);
+vector<string>memory(262140);//0x0000~0xFFFF
+string cur;//to store the current instruction
 
 /*
 int main(void)
