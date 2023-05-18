@@ -171,6 +171,55 @@ void MIPSassembler(string file_path) {
 					//cout << binary << endl;
 					//cout << Bin2Hex(binary) << endl;
 				}
+				else if (op == "add.s" || op == "sub.s" || op == "mul.s" || op == "div.s") {
+					string fd, ft, fs;
+					strin >> fd;
+					strin >> ft;
+					strin >> fs;
+					fd = Reg2Bin(fd);
+					fs = Reg2Bin(fs);
+					ft = Reg2Bin(ft);
+					binary = "01000110000";
+					binary = binary + ft + fs + fd;
+					if (op == "add.s") {
+						binary += "000000";
+					}else if (op == "sub.s") {
+						binary += "000001";
+					}else if(op == "mul.s") {
+						binary += "000010";
+					}else if (op == "div.s") {
+						binary += "000011";
+					}
+					add_to_memory(binary);
+					//cout << binary << endl;
+					//cout << Bin2Hex(binary) << endl;
+				}
+				else if (op == "add.d" || op == "sub.d" || op == "mul.d" || op == "div.d") {
+				    string fd, ft, fs;
+				    strin >> fd;
+				    strin >> ft;
+				    strin >> fs;
+				    fd = Reg2Bin(fd);
+				    fs = Reg2Bin(fs);
+				    ft = Reg2Bin(ft);
+				    binary = "01000110001";
+				    binary = binary + ft + fs + fd;
+				    if (op == "add.d") {
+					    binary += "000000";
+				    }
+				    else if (op == "sub.d") {
+						binary += "000001";
+				    }
+				    else if (op == "mul.d") {
+				    	binary += "000010";
+				    }
+				    else if (op == "div.d") {
+					    binary += "000011";
+				    }
+				    add_to_memory(binary);
+				    //cout << binary << endl;
+				    //cout << Bin2Hex(binary) << endl;
+				}
 				else if (op == "sll" || op == "srl") {
 					string rt, rd, shamt;
 					int t = 0;
@@ -232,6 +281,42 @@ void MIPSassembler(string file_path) {
 					//cout << binary << endl;
 					//cout << BintoHex(binary) << endl;
 				}
+				else if (op == "lwc1" || op == "swc1" || op == "ldc1" || op == "sdc1") {
+				    string fs, ft, target;
+				    int t = 0;
+				    strin >> ft;
+				    strin >> target;
+				    strin >> fs;
+				    fs = Reg2Bin(fs);
+				    ft = Reg2Bin(ft);
+				    if (op == "lwc1") {
+					    binary = "110001";
+				    }
+				    else if (op == "swc1") {
+					    binary = "111001";
+					}
+					else if (op == "ldc1") {
+						binary = "110101";
+					}
+					else if (op == "sdc1") {
+						binary = "111101";
+					}
+				    binary += fs;
+				    binary += ft;
+				    if (target[0] == '0' && target[1] == 'x') {
+					    binary += Hex2Bin(target, 16);
+				    }
+				    else {
+					    for (int i = 0; i < target.size(); i++) {
+						    t *= 10;
+						    t += target[i] - '0';
+					    }
+					    binary += Int2Bin(t, 16);
+				    }
+				    add_to_memory(binary);
+				    //cout << binary << endl;
+				    //cout << Bin2Hex(binary) << endl;
+                               }
 				else {
 					string rs, rt, target;
 					int t = 0;
