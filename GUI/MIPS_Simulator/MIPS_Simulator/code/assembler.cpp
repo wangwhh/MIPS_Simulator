@@ -5,11 +5,11 @@ vector<string> asm_codes;
 vector<string> memory;
 
 void GetLabel(string file_path) {
-	//¶ÁÈëËùÓÐµÄlabel
+	//è¯»å…¥æ‰€æœ‰çš„label
 	ifstream fin;
 	fin.open(file_path, ios::in);
 	if (!fin.is_open()) {
-		cout << "¶ÁÈ¡ÎÄ¼þÊ§°Ü" << endl;
+		cout << "è¯»å–æ–‡ä»¶å¤±è´¥" << endl;
 		return;
 	}
 	while (fin.peek() != EOF) {
@@ -73,8 +73,20 @@ void MIPSassembler(string file_path) {
 			stringstream strin(buffer);
 			strin >> op;
 			if (op[op.size() - 1] == ':') {
+				buffer.erase(0, op.size() + 1);
+				cout << buffer << endl;
+				if (!buffer.empty()) {
+					while (buffer[0] == ' ') {
+						buffer.erase(0, 1);
+						if (buffer.empty()) {
+							break;
+						}
+					}
+				}
+				cout << buffer << endl;
+				strin >> op;
 			}
-			else {
+			if(!buffer.empty()) {
 				if (op[0] == 'j') {
 					if (op[1] == 'a') {//jal
 						string target;
@@ -128,7 +140,7 @@ void MIPSassembler(string file_path) {
 						add_to_memory(binary);
 					}
 					//cout << binary << endl;
-					//cout << BintoHex(binary) << endl;
+					//cout << Bin2Hex(binary) << endl;
 				}
 				else if (op == "add" || op == "sub" || op == "and" || op == "or" || op == "nor") {
 					string rs, rt, rd;
@@ -157,9 +169,9 @@ void MIPSassembler(string file_path) {
 					}
 					add_to_memory(binary);
 					//cout << binary << endl;
-					//cout << BintoHex(binary) << endl;
+					//cout << Bin2Hex(binary) << endl;
 				}
-				else if (op == "sll") {
+				else if (op == "sll" || op == "srl") {
 					string rt, rd, shamt;
 					int t = 0;
 					strin >> rd;
@@ -180,7 +192,12 @@ void MIPSassembler(string file_path) {
 						}
 						binary += Int2Bin(t, 5);
 					}
-					binary += "000000";
+					if (op == "sll") {
+						binary += "000000";
+					}
+					else { 
+						binary += "000010"; 
+					}
 					add_to_memory(binary);
 					//cout << binary << endl;
 					//cout << BintoHex(binary) << endl;
@@ -249,18 +266,18 @@ void MIPSassembler(string file_path) {
 					}
 					else {
 						string str;
-						if (target[0] == '-') {//¸ºÊý
+						if (target[0] == '-') {//è´Ÿæ•°
 							for (int i = 1; i < target.size(); i++) {
 								t *= 10;
 								t += target[i] - '0';
 							}
-							//¾ø¶ÔÖµµÄ¶þ½øÖÆ
+							//ç»å¯¹å€¼çš„äºŒè¿›åˆ¶
 							str = Int2Bin(t, 16);
-							//È¡·´
+							//å–å
 							for (int i = 0; i < str.size(); i++) {
 								str[i] = str[i] == '0' ? '1' : '0';
 							}
-							//¼ÓÒ»£¬×ª»¯Îªint¼Ó1ÔÚ×ª»¯Îªbinary
+							//åŠ ä¸€ï¼Œè½¬åŒ–ä¸ºintåŠ 1åœ¨è½¬åŒ–ä¸ºbinary
 							str = Bin2Int(str);
 							t = 0;
 							for (int i = 0; i < str.size(); i++) {
