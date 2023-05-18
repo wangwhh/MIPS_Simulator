@@ -142,6 +142,12 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 	for (int i = 0; i < 32; i++) {
 		register_list.InsertItem(i, register_name[i].c_str());
 	}
+	string f_register_name[32] = { "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", 
+	"f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", 
+	"f25", "f26", "f27", "f28", "f29", "f30", "f31"};
+	for (int i = 32; i < 64; i++) {
+		register_list.InsertItem(i, f_register_name[i-32].c_str());
+	}
 	UpdateRegisters();
 
 	
@@ -153,7 +159,7 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 	memory_list.InsertColumn(1, _T("Machine Code"), LVCFMT_CENTER, listRect.Width() / 3, 1);
 	memory_list.InsertColumn(2, _T("Assembler Code"), LVCFMT_CENTER, listRect.Width() / 2, 2);
 	//设置行
-	for (int i = 0; i < 262140; i += 4) {
+	for (int i = 0; i < 65536; i += 4) {
 		CString str;
 		str.Format(_T("0x%04X"), i);
 		memory_list.InsertItem(i / 4, str);
@@ -265,6 +271,7 @@ void CMIPSSimulatorDlg::OnBnClickedButton2()
 	PC+=4;
 	Execute_instruction(memory[cur]+ memory[cur+1]+memory[cur+2]+memory[cur+3]);
 	UpdateRegisters();
+	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 }
@@ -279,7 +286,7 @@ void CMIPSSimulatorDlg::UpdateRegisters()
 
 void CMIPSSimulatorDlg::UpdateMemory()
 {
-	for (int i = 0; i < 262140; i += 4) {
+	for (int i = 0; i < 65536; i += 4) {
 		CString str;
 		str = Bin2Hex(memory[i] + memory[i + 1] + memory[i + 2] + memory[i + 3]).c_str();
 		memory_list.SetItemText(i / 4, 1, str);

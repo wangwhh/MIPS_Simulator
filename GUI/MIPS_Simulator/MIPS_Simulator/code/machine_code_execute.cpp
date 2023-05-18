@@ -47,7 +47,7 @@ void exeInitialize()
         else if (file_path.substr(file_path.length() - 4, 4) == ".bin")
             Disassemble(file_path);
     }
-    for(int i = memory.size(); i < 262140; i++) memory.push_back("00000000");
+    for(int i = memory.size(); i < 65536; i++) memory.push_back("00000000");
     for(int i = 0; i<32; i++) registers[i] = "00000000000000000000000000000000";
     registers[29] = "00000000000000001111111111111100";  //$sp = 0xFFFC
     PC = 0;
