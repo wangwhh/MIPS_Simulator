@@ -21,6 +21,7 @@ extern string register_name[];
 extern vector<string> memory;
 extern vector<string> asm_codes;
 extern int PC;
+extern int cur;
 string file_path;
 int file_opened = 0;
 
@@ -260,8 +261,9 @@ void CMIPSSimulatorDlg::OnBnClickedButton3()
 void CMIPSSimulatorDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	cur = PC;
 	PC+=4;
-	Execute_instruction(memory[PC]+ memory[PC+1]+memory[PC+2]+memory[PC+3]);
+	Execute_instruction(memory[cur]+ memory[cur+1]+memory[cur+2]+memory[cur+3]);
 	UpdateRegisters();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
