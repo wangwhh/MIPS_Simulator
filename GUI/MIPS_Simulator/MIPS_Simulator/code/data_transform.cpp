@@ -3,7 +3,7 @@
 string Int2Bin(int val,int k) {
 	string str = "";
 	for (int i = k - 1; i >= 0; i--) {
-		if (val & (1 << i))//&��λ����
+		if (val & (1 << i))//&°´Î»¼ÆËã
 			str += "1";
 		else
 			str += "0";
@@ -40,6 +40,20 @@ string Reg2Bin(string reg) {
 		case '9':str = "11001"; break;
 		}
 	}break;
+	case'f': {
+		switch (reg[1]) {//fp
+		case'p':str = "11110"; break;
+		default: {//浮点数寄存器
+			int num = 0;
+			num += reg[1] - '0';
+			if (reg.size() > 2) {
+				num *= 10;
+				num += reg[2] - '0';
+			}
+			str = Int2Bin(num, 5);
+			break;
+		    }
+		}
 	case 's': {
 		switch (reg[1]) {
 		case '0':str = "10000"; break;
@@ -54,7 +68,6 @@ string Reg2Bin(string reg) {
 		}
 	}break;
 	case 'g':str = "11100"; break;
-	case 'f':str = "11110"; break;
 	case 'r':str = "11111"; break;
 	}
 	return str;
