@@ -44,4 +44,6 @@ public:
 	CString cur_execute;
 	CEdit edit1_ctrl;
 	CEdit edit2_ctrl;
+	afx_msg void OnClose();
+	afx_msg void OnBnClickedButton1();
 };

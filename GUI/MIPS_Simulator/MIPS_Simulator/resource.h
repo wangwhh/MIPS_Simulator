@@ -8,7 +8,7 @@
 #define IDD_MIPS_SIMULATOR_DIALOG       102
 #define IDR_MAINFRAME                   128
 #define IDR_MENU1                       134
-#define IDC_TAB1                        1002
+#define IDR_ACCELERATOR1                139
 #define IDC_LIST_REGISTER               1006
 #define IDC_LIST_MEMORY                 1008
 #define IDC_BUTTON1                     1009
@@ -16,26 +16,21 @@
 #define IDC_BUTTON3                     1011
 #define IDC_EDIT1                       1015
 #define IDC_EDIT2                       1016
-#define ID_32771                        32771
-#define ID_32772                        32772
-#define ID_32773                        32773
-#define ID_32774                        32774
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
 #define ID_32778                        32778
-#define ID_Menu                         32779
 #define ID_OPEN                         32780
-#define ID_SAVE                         32781
 #define ID_CLOSE                        32782
-#define ID_NEW                          32783
+#define ID_BUTTON2                      32788
+#define IDC_ABOUTBOX                    32791
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        139
-#define _APS_NEXT_COMMAND_VALUE         32784
+#define _APS_NEXT_RESOURCE_VALUE        140
+#define _APS_NEXT_COMMAND_VALUE         32792
 #define _APS_NEXT_CONTROL_VALUE         1017
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

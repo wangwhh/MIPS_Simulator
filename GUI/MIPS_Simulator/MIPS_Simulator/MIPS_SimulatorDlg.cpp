@@ -90,6 +90,8 @@ BEGIN_MESSAGE_MAP(CMIPSSimulatorDlg, CDialogEx)
 	ON_COMMAND(32780, &CMIPSSimulatorDlg::OnOpen)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMIPSSimulatorDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMIPSSimulatorDlg::OnBnClickedButton2)
+	ON_COMMAND(ID_CLOSE, &CMIPSSimulatorDlg::OnClose)
+	ON_BN_CLICKED(IDC_BUTTON1, &CMIPSSimulatorDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -293,5 +295,20 @@ void CMIPSSimulatorDlg::UpdateMemory()
 		if (i / 4 < asm_codes.size()) str = asm_codes[i / 4].c_str();
 		else str = "";
 		memory_list.SetItemText(i / 4, 2, str);
+	}
+}
+
+void CMIPSSimulatorDlg::OnClose()
+{
+	// TODO: 在此添加命令处理程序代码
+	exit (0);
+}
+
+
+void CMIPSSimulatorDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	while (PC / 4 <= asm_codes.size()) {
+		OnBnClickedButton2();
 	}
 }
