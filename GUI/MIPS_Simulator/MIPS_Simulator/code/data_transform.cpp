@@ -40,9 +40,9 @@ string Reg2Bin(string reg) {
 		case '9':str = "11001"; break;
 		}
 	}break;
-	case'f': {
+	case 'f': {
 		switch (reg[1]) {//fp
-		case'p':str = "11110"; break;
+		case 'p':str = "11110"; break;
 		default: {//浮点数寄存器
 			int num = 0;
 			num += reg[1] - '0';
@@ -54,6 +54,7 @@ string Reg2Bin(string reg) {
 			break;
 		    }
 		}
+	}break;
 	case 's': {
 		switch (reg[1]) {
 		case '0':str = "10000"; break;
