@@ -292,7 +292,10 @@ void CMIPSSimulatorDlg::UpdateRegisters()
 	}
 	for (int i = 33; i < 65; i++) {
 		register_list.SetItemText(i, 1, Bin2Hex(f_registers[i - 33]).c_str());
-		register_list.SetItemText(i, 2, to_string(Bin2Float(f_registers[i - 33])).c_str());
+		if (i % 2 == 1)
+			register_list.SetItemText(i, 2, to_string(Bin2Float(f_registers[i - 33])).c_str());
+		else
+			register_list.SetItemText(i, 2, to_string(Bin2Double(f_registers[i - 34], f_registers[i - 33])).c_str());
 	}
 }
 
