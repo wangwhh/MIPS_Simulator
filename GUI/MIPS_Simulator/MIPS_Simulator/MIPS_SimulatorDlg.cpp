@@ -17,6 +17,7 @@
 #endif
 
 extern vector<string>registers;
+extern vector<string>f_registers;
 extern string register_name[];
 extern vector<string> memory;
 extern vector<string> asm_codes;
@@ -145,13 +146,11 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 	for (int i = 1; i < 33; i++) {
 		register_list.InsertItem(i, register_name[i-1].c_str());
 	}
-	register_list.InsertItem(33, "hi");
-	register_list.InsertItem(34, "lo");
 	string f_register_name[32] = { "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", 
 	"f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", 
 	"f25", "f26", "f27", "f28", "f29", "f30", "f31"};
-	for (int i = 35; i < 67; i++) {
-		register_list.InsertItem(i, f_register_name[i-35].c_str());
+	for (int i = 33; i < 65; i++) {
+		register_list.InsertItem(i, f_register_name[i-33].c_str());
 	}
 	UpdateRegisters();
 
@@ -264,6 +263,8 @@ void CMIPSSimulatorDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	exeInitialize();
+	UpdateRegisters();
+	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 }
@@ -288,6 +289,10 @@ void CMIPSSimulatorDlg::UpdateRegisters()
 	for (int i = 1; i <= 32; i++) {
 		register_list.SetItemText(i, 1, Bin2Hex(registers[i-1]).c_str());
 		register_list.SetItemText(i, 2, Bin2Int(registers[i-1]).c_str());
+	}
+	for (int i = 33; i < 65; i++) {
+		register_list.SetItemText(i, 1, Bin2Hex(f_registers[i - 33]).c_str());
+		register_list.SetItemText(i, 2, to_string(Bin2Float(f_registers[i - 33])).c_str());
 	}
 }
 

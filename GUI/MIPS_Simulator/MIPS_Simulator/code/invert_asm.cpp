@@ -197,7 +197,7 @@ string invert_line(string buffer)
 		}
 	}
 	if (flag != 0) return ret;
-	else return 0;
+	else return NULL;
 }
 
 string get_register(string reg)

@@ -33,7 +33,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnOpen();
-	afx_msg void OnNew();
 	CListCtrl register_list;
 	CListCtrl memory_list;
 	afx_msg void OnBnClickedButton3();
