@@ -344,61 +344,61 @@ void Execute_instruction(string s)
         fs = StrToUnsign(s.substr(16, 5));
         fd = StrToUnsign(s.substr(21, 5));
         string funct = s.substr(26, 6);
-        int result;
 
         float t, s, d;
-        //t = Bin2Float(f_registers[ft]);
+        t = Bin2Float(f_registers[ft]);
         s = Bin2Float(f_registers[fs]);
-        d = Bin2Float(f_registers[fd]);
+        //d = Bin2Float(f_registers[fd]);
 
         double tt, ss, dd;
-        //tt = Bin2Float(f_registers[ft]);
+        tt = Bin2Double(f_registers[ft], f_registers[ft + 1]);
         ss = Bin2Double(f_registers[fs], f_registers[fs + 1]);
-        dd = Bin2Double(f_registers[fd], f_registers[fd + 1]);
+        //dd = Bin2Double(f_registers[fd], f_registers[fd + 1]);
 
         if ((funct == "000000") && (fmt == "10000"))//add.s
         {
-            t = s + d;
-            f_registers[ft] = Float2Bin(t);
+
+            d = t + s;
+            f_registers[fd] = Float2Bin(d);
         }
         if ((funct == "000001") && (fmt == "10000"))//sub.s
         {
-            t = s - d;
-            f_registers[ft] = Float2Bin(t);
+            d = t - s;
+            f_registers[fd] = Float2Bin(d);
         }
         if ((funct == "000010") && (fmt == "10000"))//mul.s
         {
-            t = s * d;
-            f_registers[ft] = Float2Bin(t);
+            d = t * s;
+            f_registers[fd] = Float2Bin(d);
         }
         if ((funct == "000011") && (fmt == "10000"))//div.s
         {
-            t = s / d;
-            f_registers[ft] = Float2Bin(t);
+            d = t / s;
+            f_registers[fd] = Float2Bin(d);
         }
         if ((funct == "000000") && (fmt == "10001"))//add.d
-        {
-            tt = ss + dd;
-            f_registers[ft] = Double2Bin(tt).substr(0,32);
-            f_registers[ft + 1] = Double2Bin(tt).substr(32);
+        {         
+            dd = ss + tt;
+            f_registers[fd] = Double2Bin(dd).substr(0,32);
+            f_registers[fd + 1] = Double2Bin(dd).substr(32);
         }
         if ((funct == "000001") && (fmt == "10001"))//sub.d
         {
-            tt = ss - dd;
-            f_registers[ft] = Double2Bin(tt).substr(0, 32);
-            f_registers[ft + 1] = Double2Bin(tt).substr(32);
+            dd = ss - tt;
+            f_registers[fd] = Double2Bin(dd).substr(0, 32);
+            f_registers[fd + 1] = Double2Bin(dd).substr(32);
         }
         if ((funct == "000010") && (fmt == "10001"))//mul.d
         {
-            tt = ss * dd;
-            f_registers[ft] = Double2Bin(tt).substr(0, 32);
-            f_registers[ft + 1] = Double2Bin(tt).substr(32);
+            dd = ss * tt;
+            f_registers[fd] = Double2Bin(dd).substr(0, 32);
+            f_registers[fd + 1] = Double2Bin(dd).substr(32);
         }
         if ((funct == "000011") && (fmt == "10001"))//div.d
         {
-            tt = ss / dd;
-            f_registers[ft] = Double2Bin(tt).substr(0, 32);
-            f_registers[ft + 1] = Double2Bin(tt).substr(32);
+            dd = ss / tt;
+            f_registers[fd] = Double2Bin(dd).substr(0, 32);
+            f_registers[fd + 1] = Double2Bin(dd).substr(32);
         }
     }
     else if (op == "110001")//lwc1
