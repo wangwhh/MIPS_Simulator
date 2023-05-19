@@ -30,6 +30,17 @@ void GetLabel(string file_path) {
 			if (op[op.size() - 1] == ':') {
 				Label[op.substr(0, op.size() - 1)] = addr;
 				//cout << "in :" << op << endl;
+				buffer.erase(0, op.size() + 1);
+				//cout << buffer << endl;
+				while (!buffer.empty()) {
+					if (buffer[0] == ' ') {
+						buffer.erase(0, 1);
+					}
+					else {
+						addr += 1;
+						break;
+					}
+				}
 			}
 			else {
 				addr += 1;
