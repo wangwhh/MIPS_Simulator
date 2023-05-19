@@ -40,6 +40,12 @@ string Reg2Bin(string reg) {
 		case '9':str = "11001"; break;
 		}
 	}break;
+	case 'k': {
+		switch (reg[1]) {
+		case '0':str = "11010"; break;
+		case '1':str = "10011"; break;
+		}
+	}break;
 	case 'f': {
 		switch (reg[1]) {//fp
 		case 'p':str = "11110"; break;
@@ -65,11 +71,14 @@ string Reg2Bin(string reg) {
 		case '5':str = "10101"; break;
 		case '6':str = "10110"; break;
 		case '7':str = "10111"; break;
+		case '8':str = "11110"; break;
 		case 'p':str = "11101"; break;
 		}
 	}break;
 	case 'g':str = "11100"; break;
 	case 'r':str = "11111"; break;
+	case 'i':str = "00001"; break;
+	case 'h':str = "11111"; break;
 	}
 	return str;
 }
