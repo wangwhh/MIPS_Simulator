@@ -186,6 +186,8 @@
     <ClInclude Include="code\assembler.h" />
     <ClInclude Include="code\data_transform.h" />
     <ClInclude Include="code\machine_code_execute.h" />
+    <ClInclude Include="CTabFloat.h" />
+    <ClInclude Include="CTabReg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="code\invert_asm.h" />
     <ClInclude Include="MIPS_Simulator.h" />
@@ -211,6 +213,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="CTabFloat.cpp" />
+    <ClCompile Include="CTabReg.cpp" />
     <ClCompile Include="MIPS_Simulator.cpp" />
     <ClCompile Include="MIPS_SimulatorDlg.cpp" />
     <ClCompile Include="pch.cpp">

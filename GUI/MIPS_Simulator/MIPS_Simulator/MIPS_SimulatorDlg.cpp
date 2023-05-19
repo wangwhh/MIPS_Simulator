@@ -16,9 +16,6 @@
 #define new DEBUG_NEW
 #endif
 
-extern vector<string>registers;
-extern vector<string>f_registers;
-extern string register_name[];
 extern vector<string> memory;
 extern vector<string> asm_codes;
 extern int PC;
@@ -78,10 +75,11 @@ CMIPSSimulatorDlg::CMIPSSimulatorDlg(CWnd* pParent /*=nullptr*/)
 void CMIPSSimulatorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_LIST_REGISTER, register_list);
+	
 	DDX_Control(pDX, IDC_LIST_MEMORY, memory_list);
 	DDX_Control(pDX, IDC_EDIT1, edit1_ctrl);
 	DDX_Control(pDX, IDC_EDIT2, edit2_ctrl);
+	DDX_Control(pDX, IDC_TAB1, m_tab);
 }
 
 BEGIN_MESSAGE_MAP(CMIPSSimulatorDlg, CDialogEx)
@@ -92,6 +90,7 @@ BEGIN_MESSAGE_MAP(CMIPSSimulatorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMIPSSimulatorDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMIPSSimulatorDlg::OnBnClickedButton2)
 	ON_COMMAND(ID_CLOSE, &CMIPSSimulatorDlg::OnClose)
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CMIPSSimulatorDlg::OnTcnSelchangeTab1)
 	ON_BN_CLICKED(IDC_BUTTON1, &CMIPSSimulatorDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
@@ -132,30 +131,23 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	exeInitialize();
-	// List
-	CRect listRect;
-	// Register
-	register_list.GetClientRect(&listRect);
-	register_list.SetExtendedStyle(register_list.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-	//设置列
-	register_list.InsertColumn(0, _T("Register"), LVCFMT_CENTER, listRect.Width() / 6, 0);
-	register_list.InsertColumn(1, _T("Hexadecimal"), LVCFMT_CENTER, listRect.Width() * 5 / 12, 1);
-	register_list.InsertColumn(2, _T("Decimal"), LVCFMT_CENTER, listRect.Width() * 5 / 12, 2);
-	//设置行
-	register_list.InsertItem(0, "pc");
-	for (int i = 1; i < 33; i++) {
-		register_list.InsertItem(i, register_name[i-1].c_str());
-	}
-	string f_register_name[32] = { "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", 
-	"f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", 
-	"f25", "f26", "f27", "f28", "f29", "f30", "f31"};
-	for (int i = 33; i < 65; i++) {
-		register_list.InsertItem(i, f_register_name[i-33].c_str());
-	}
-	UpdateRegisters();
+	CRect tabRect;
+	m_tab.GetClientRect(&tabRect);
+	tabRect.DeflateRect(2, 30, 5, 5);
+	m_tab.InsertItem(0, _T("Registers"));
+	m_tab.InsertItem(1, _T("Float"));
+	tab_reg = new CTabReg();
+	tab_float = new CTabFloat();
+	tab_reg->Create(IDD_DIALOG_REG, &m_tab);
+	tab_float->Create(IDD_DIALOG_FLT, &m_tab);
+	tab_reg->MoveWindow(tabRect);
+	tab_float->MoveWindow(tabRect);
+	tab_reg->ShowWindow(SW_SHOW);
+	tab_float->ShowWindow(SW_HIDE);
+	//UpdateRegisters();
 
-	
 	// Memory
+	CRect listRect;
 	memory_list.GetClientRect(&listRect);
 	memory_list.SetExtendedStyle(memory_list.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	//设置列
@@ -246,7 +238,8 @@ void CMIPSSimulatorDlg::OnOpen()
 		edit2_ctrl.SetWindowTextA(cur_execute);
 	}
 	exeInitialize();
-	UpdateRegisters();
+	tab_reg->UpdateRegisters();
+	tab_float->UpdateRegisters();
 	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC / 4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
@@ -263,7 +256,7 @@ void CMIPSSimulatorDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	exeInitialize();
-	UpdateRegisters();
+	tab_reg->UpdateRegisters();
 	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
@@ -276,25 +269,12 @@ void CMIPSSimulatorDlg::OnBnClickedButton2()
 	cur = PC;
 	PC+=4;
 	Execute_instruction(memory[cur]+ memory[cur+1]+memory[cur+2]+memory[cur+3]);
-	UpdateRegisters();
+	tab_reg->UpdateRegisters();
 	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 }
 
-void CMIPSSimulatorDlg::UpdateRegisters()
-{
-	register_list.SetItemText(0, 1, Bin2Hex(Int2Bin(PC, 16)).c_str());
-	register_list.SetItemText(0, 2, to_string(PC).c_str());
-	for (int i = 1; i <= 32; i++) {
-		register_list.SetItemText(i, 1, Bin2Hex(registers[i-1]).c_str());
-		register_list.SetItemText(i, 2, Bin2Int(registers[i-1]).c_str());
-	}
-	for (int i = 33; i < 65; i++) {
-		register_list.SetItemText(i, 1, Bin2Hex(f_registers[i - 33]).c_str());
-		register_list.SetItemText(i, 2, to_string(Bin2Float(f_registers[i - 33])).c_str());
-	}
-}
 
 void CMIPSSimulatorDlg::UpdateMemory()
 {
@@ -321,4 +301,21 @@ void CMIPSSimulatorDlg::OnBnClickedButton1()
 	while (PC / 4 <= asm_codes.size()) {
 		OnBnClickedButton2();
 	}
+}
+
+
+void CMIPSSimulatorDlg::OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// TODO: 在此添加控件通知处理程序代码
+	switch (m_tab.GetCurSel()) {
+	case 0:
+		tab_reg->ShowWindow(SW_SHOW);
+		tab_float->ShowWindow(SW_HIDE);
+		break;
+	case 1:
+		tab_reg->ShowWindow(SW_HIDE);
+		tab_float->ShowWindow(SW_SHOW);
+		break;
+	}
+	*pResult = 0;
 }

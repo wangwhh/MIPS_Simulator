@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "CTabReg.h"
+#include "CTabFloat.h"
 
 // CMIPSSimulatorDlg 对话框
 class CMIPSSimulatorDlg : public CDialogEx
@@ -33,11 +34,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnOpen();
-	CListCtrl register_list;
 	CListCtrl memory_list;
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton2();
-	afx_msg void UpdateRegisters();
+	
 	afx_msg void UpdateMemory();
 	CString cur_file;
 	CString cur_execute;
@@ -45,4 +45,8 @@ public:
 	CEdit edit2_ctrl;
 	afx_msg void OnClose();
 	afx_msg void OnBnClickedButton1();
+	CTabCtrl m_tab;
+	CTabReg *tab_reg;
+	CTabFloat *tab_float;
+	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
 };

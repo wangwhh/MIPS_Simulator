@@ -45,6 +45,12 @@
     <ClInclude Include="code\machine_code_execute.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CTabReg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CTabFloat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MIPS_Simulator.cpp">
@@ -66,6 +72,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="code\machine_code_execute.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CTabReg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CTabFloat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
