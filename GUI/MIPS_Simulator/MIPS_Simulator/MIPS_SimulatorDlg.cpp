@@ -141,14 +141,17 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 	register_list.InsertColumn(1, _T("Hexadecimal"), LVCFMT_CENTER, listRect.Width() * 5 / 12, 1);
 	register_list.InsertColumn(2, _T("Decimal"), LVCFMT_CENTER, listRect.Width() * 5 / 12, 2);
 	//设置行
-	for (int i = 0; i < 32; i++) {
-		register_list.InsertItem(i, register_name[i].c_str());
+	register_list.InsertItem(0, "pc");
+	for (int i = 1; i < 33; i++) {
+		register_list.InsertItem(i, register_name[i-1].c_str());
 	}
+	register_list.InsertItem(33, "hi");
+	register_list.InsertItem(34, "lo");
 	string f_register_name[32] = { "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", 
 	"f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24", 
 	"f25", "f26", "f27", "f28", "f29", "f30", "f31"};
-	for (int i = 32; i < 64; i++) {
-		register_list.InsertItem(i, f_register_name[i-32].c_str());
+	for (int i = 35; i < 67; i++) {
+		register_list.InsertItem(i, f_register_name[i-35].c_str());
 	}
 	UpdateRegisters();
 
@@ -280,9 +283,11 @@ void CMIPSSimulatorDlg::OnBnClickedButton2()
 
 void CMIPSSimulatorDlg::UpdateRegisters()
 {
-	for (int i = 0; i <= 31; i++) {
-		register_list.SetItemText(i, 1, Bin2Hex(registers[i]).c_str());
-		register_list.SetItemText(i, 2, Bin2Int(registers[i]).c_str());
+	register_list.SetItemText(0, 1, Bin2Hex(Int2Bin(PC, 16)).c_str());
+	register_list.SetItemText(0, 2, to_string(PC).c_str());
+	for (int i = 1; i <= 32; i++) {
+		register_list.SetItemText(i, 1, Bin2Hex(registers[i-1]).c_str());
+		register_list.SetItemText(i, 2, Bin2Int(registers[i-1]).c_str());
 	}
 }
 
