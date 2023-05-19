@@ -351,6 +351,9 @@ void MIPSassembler(string file_path) {
 					else if (op == "bne") {
 						binary = "000101";
 					}
+					else if (op == "andi") {
+						binary = "001100";
+					}
 					binary = binary + rs + rt;
 					if (Label.find(target) != Label.end()) {
 						int a = Label[target];
