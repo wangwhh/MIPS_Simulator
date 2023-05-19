@@ -257,6 +257,7 @@ void CMIPSSimulatorDlg::OnBnClickedButton3()
 	// TODO: 在此添加控件通知处理程序代码
 	exeInitialize();
 	tab_reg->UpdateRegisters();
+	tab_float->UpdateRegisters();
 	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
@@ -270,6 +271,7 @@ void CMIPSSimulatorDlg::OnBnClickedButton2()
 	PC+=4;
 	Execute_instruction(memory[cur]+ memory[cur+1]+memory[cur+2]+memory[cur+3]);
 	tab_reg->UpdateRegisters();
+	tab_float->UpdateRegisters();
 	UpdateMemory();
 	memory_list.SetFocus();
 	memory_list.SetItemState(PC/4, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
