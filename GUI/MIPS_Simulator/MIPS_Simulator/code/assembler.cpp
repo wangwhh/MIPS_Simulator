@@ -3,8 +3,10 @@
 
 vector<string> asm_codes;
 vector<string> memory;
+map<string, int> Label;
 
 void GetLabel(string file_path) {
+	addr = 0;
 	//读入所有的label
 	ifstream fin;
 	fin.open(file_path, ios::in);

@@ -4,7 +4,7 @@
 #include"data_transform.h"
 
 static string buffer;
-static map<string, int> Label;
+
 static int addr = 0;
 
 void MIPSassembler(string file_path);

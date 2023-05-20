@@ -12,6 +12,7 @@ int cur;
 extern vector<string>memory;
 extern string file_path;
 extern vector<string>asm_codes;
+extern map<string, int> Label;
 extern int file_opened;
 
 float Bin2Float(string s)
@@ -220,6 +221,7 @@ void exeInitialize()
 {
     memory.clear();
     asm_codes.clear();
+    Label.clear();
     if (file_opened == 1) {
         if (file_path.substr(file_path.length() - 4, 4) == ".asm") 
             MIPSassembler(file_path);
