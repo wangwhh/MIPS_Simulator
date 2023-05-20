@@ -34,19 +34,18 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnOpen();
-	CListCtrl memory_list;
-	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
-	
+	afx_msg void OnBnClickedButton3();
 	afx_msg void UpdateMemory();
+	afx_msg void OnClose();
+	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
+	CListCtrl memory_list;
 	CString cur_file;
 	CString cur_execute;
 	CEdit edit1_ctrl;
 	CEdit edit2_ctrl;
-	afx_msg void OnClose();
-	afx_msg void OnBnClickedButton1();
 	CTabCtrl m_tab;
 	CTabReg *tab_reg;
 	CTabFloat *tab_float;
-	afx_msg void OnTcnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult);
 };
