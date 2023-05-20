@@ -4,7 +4,7 @@
         addi $s3, $zero, 4
         addi $s4, $zero, 5
         addi $t7, $zero, 0
-        addi $t8, $zero, 1024
+        addi $t8, $zero, 64
         sw $s0, 0($t8)
         sw $s1, 4($t8)
         sw $s2, 8($t8)

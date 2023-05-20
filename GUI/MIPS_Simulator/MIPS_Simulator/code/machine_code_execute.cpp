@@ -315,13 +315,13 @@ void Execute_instruction(string s)
     }
     else if(op == "000011")//jal
     {
-        registers[31] = memory[PC] + memory[PC+1] + memory[PC+2] + memory[PC+3];
-        string address = memory[PC].substr(0,4) + s.substr(6,26) + "00";
+        registers[31] = Int2Bin(PC, 32);
+        string address = Int2Bin(PC, 32).substr(0,4) + s.substr(6,26) + "00";
         PC = StrToUnsign(address);
     }
     else if (op == "000010")//j
     {
-        string address = memory[PC].substr(0, 4) + s.substr(6, 26) + "00";
+        string address = Int2Bin(PC, 32).substr(0, 4) + s.substr(6, 26) + "00";
         PC = StrToUnsign(address);
     }
     else if(op == "000100")//beq
