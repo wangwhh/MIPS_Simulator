@@ -114,10 +114,10 @@ double Bin2Double(string s1, string s2)
     string mantissaString = s.substr(12);
     double mantissa = 1.0;
 
-    for (int i = 0; i < mantissaString.length(); ++i)
+    for (unsigned long long i = 0; i < mantissaString.length(); ++i)
         if (mantissaString[i] == '1')
         {
-            mantissa += 1.0 / (1 << (i + 1));
+            mantissa += 1.0 / pow(2, i + 1);
         }
 
     //cout<<exponent<<endl;
