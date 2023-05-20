@@ -14,15 +14,15 @@
         add $t1, $zero, $zero
 loop:   add $t7, $t0, $t8
         lw $t2, 0($t7)
-        add $t1, $t1, $t2
         andi $t1, $t1, 255
+        add $t1, $t1, $t2
         or $t1, $t1, $t2
         ori $t1, $t1, 256
         sub $t1, $t1, $t2
         nor $t1, $t1, $t2
         and $t1, $t1, $t2
-        sll $t3, $t1, 2
-        srl $t3, $t1, 1
+        sll $t3, $t2, 2
+        srl $t3, $t2, 1
         sw $t1, 0($t7)
         bne $t0, $s3, exit
         beq $t0, $s2, function
