@@ -229,7 +229,7 @@ void exeInitialize()
     for(int i = memory.size(); i < 65536; i++) memory.push_back("00000000");
     for(int i = 0; i<32; i++) registers[i] = "00000000000000000000000000000000";
     for (int i = 0; i < 32; i++) f_registers[i] = "00000000000000000000000000000000";
-    registers[29] = "00000000000000001111111111111100";  //$sp = 0xFFFC
+    registers[29] = "00000000000000000011111111111111";  //$sp = 0x3FFF
     PC = 0;
 }
 
