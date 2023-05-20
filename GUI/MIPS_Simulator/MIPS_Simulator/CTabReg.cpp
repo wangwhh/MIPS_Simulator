@@ -55,7 +55,7 @@ void CTabReg::UpdateRegisters()
 	register_list.SetItemText(0, 2, to_string(PC).c_str());
 	for (int i = 1; i <= 32; i++) {
 		register_list.SetItemText(i, 1, Bin2Hex(registers[i - 1]).c_str());
-		register_list.SetItemText(i, 2, Bin2Int(registers[i - 1]).c_str());
+		register_list.SetItemText(i, 2, Int2Bin(StrToSign(registers[i - 1]),6).c_str());
 	}
 }
 
