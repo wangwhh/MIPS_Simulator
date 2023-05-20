@@ -389,7 +389,7 @@ void Execute_instruction(string s)
         }
         if ((funct == "000001") && (fmt == "10001"))//sub.d
         {
-            dd = ss - tt;
+            dd = tt - ss;
             f_registers[fd] = Double2Bin(dd).substr(0, 32);
             f_registers[fd + 1] = Double2Bin(dd).substr(32);
         }
