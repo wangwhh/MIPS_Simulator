@@ -114,7 +114,7 @@ string invert_line(string buffer)
 		}
 		ft = buffer.substr(11, 5);
 		fs = buffer.substr(16, 5);
-		fd = buffer.substr(21, 6);
+		fd = buffer.substr(21, 5);
 		ret = ret +" $f"+ to_string(stoi(fd, nullptr, 2)) + 
 			", $f" + to_string(stoi(ft, nullptr, 2)) + 
 			", $f" + to_string(stoi(fs, nullptr, 2));
