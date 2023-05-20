@@ -319,6 +319,11 @@ void Execute_instruction(string s)
         string address = memory[PC].substr(0,4) + s.substr(6,26) + "00";
         PC = StrToUnsign(address);
     }
+    else if (op == "000010")//j
+    {
+        string address = memory[PC].substr(0, 4) + s.substr(6, 26) + "00";
+        PC = StrToUnsign(address);
+    }
     else if(op == "000100")//beq
     {
         rs = StrToUnsign(s.substr(6,5));
