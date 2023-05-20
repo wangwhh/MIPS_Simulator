@@ -300,7 +300,7 @@ void CMIPSSimulatorDlg::OnClose()
 void CMIPSSimulatorDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	while (PC / 4 <= asm_codes.size()) {
+	while (PC / 4 < asm_codes.size()) {
 		OnBnClickedButton2();
 	}
 }
