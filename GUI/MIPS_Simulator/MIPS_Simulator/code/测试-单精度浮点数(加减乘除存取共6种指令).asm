@@ -8,9 +8,9 @@ sll $t3,$t3,4
 addi $t3,$t3,1
 sll $t3,$t3,12
 sw $t3,0($t0)
-lwc1 $f2,0($t0)
-add.s $f4 ,$f0, $f2
-sub.s $f4 ,$f0, $f2
-mul.s $f4 ,$f0, $f2
-div.s $f4 ,$f0, $f2
-swc1 $f4,0($t0)
+lwc1 $f1,0($t0)
+add.s $f2 ,$f0, $f1
+sub.s $f2 ,$f0, $f1
+mul.s $f2 ,$f0, $f1
+div.s $f2 ,$f0, $f1
+swc1 $f2,0($t0)
