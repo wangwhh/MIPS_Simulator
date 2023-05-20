@@ -147,6 +147,11 @@ BOOL CMIPSSimulatorDlg::OnInitDialog()
 	//UpdateRegisters();
 
 	// Memory
+	DWORD style = memory_list.GetExtendedStyle();
+	//添加网格线风格以及整行选中的风格以及前面加有选择框
+	style |= LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES;
+	//设置扩展风格
+	memory_list.SetExtendedStyle(style);
 	CRect listRect;
 	memory_list.GetClientRect(&listRect);
 	memory_list.SetExtendedStyle(memory_list.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
@@ -300,7 +305,7 @@ void CMIPSSimulatorDlg::OnClose()
 void CMIPSSimulatorDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	while (PC / 4 < asm_codes.size()) {
+	while (PC / 4 < asm_codes.size() && !memory_list.GetCheck(PC / 4)) {
 		OnBnClickedButton2();
 	}
 }

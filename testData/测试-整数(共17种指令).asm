@@ -14,18 +14,19 @@ loop:   andi $t1, $t1, 255
         or $t1, $t1, $t2
         ori $t1, $t1, 256
         sub $t1, $t1, $t2
+        sub $s2, $s2, $s0
         nor $t1, $t1, $t2
         and $t1, $t1, $t2
+        jal func
         sll $t3, $t2, 2
         srl $t3, $t2, 1
-        bne $t0, $s2, func
+        bne $t0, $s2, loop
+        and $s3, $s3, $zero
         beq $t0, $s3, end
         addi $t0, $t0, 1
-        j loop
 func:   addi $t4, $zero, 1
         sub $t4, $t4, $t5
         sll $t4, $t4, 10
-        addi $ra, $zero, 84
         jr $ra
 end:    addi $t5, $zero, 1
         sll $t5, $t5, 10
