@@ -19,5 +19,11 @@ string Bin2HexChar(int v);
 string Bin2Hex(string s);
 string Bin2Int(string s);
 string Hex2Bin(string s, int k);
+float Bin2Float(string s);
+string Float2Bin(float value);
+double Bin2Double(string s1, string s2);
+string Double2Bin(double value);
+int StrToSign(string s);
+int StrToUnsign(string s);
 
 #endif
